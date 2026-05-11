@@ -1,0 +1,20 @@
+version: '3.8'
+
+services:
+
+  thingsboard:
+    image: thingsboard/tb-postgres
+    container_name: thingsboard
+    restart: always
+
+    ports:
+      - "8085:9090"
+      - "1884:1883"
+
+    volumes:
+      - tb-data:/data
+      - tb-logs:/var/log/thingsboard
+
+volumes:
+  tb-data:
+  tb-logs:
