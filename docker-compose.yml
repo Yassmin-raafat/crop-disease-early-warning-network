@@ -2,15 +2,28 @@ version: '3.8'
 
 services:
 
+  postgres:
+    image: postgres:14-alpine
+    container_name: tb-postgres
+    environment:
+      POSTGRES_DB: thingsboard
+      POSTGRES_USER: tb_user
+      POSTGRES_PASSWORD: tb_password
+    volumes:
+      - tb-postgres-data:/var/lib/postgresql/data
+
   thingsboard:
     image: thingsboard/tb-postgres
     container_name: thingsboard
     restart: always
-
     ports:
       - "8085:9090"
       - "1884:1883"
-
+    environment:
+      TB_QUEUE_TYPE: in-memory
+      SPRING_DATASOURCE_URL: jdbc:postgresql://tb-postgres:5432/thingsboard
+      SPRING_DATASOURCE_USERNAME: tb_user
+      SPRING_DATASOURCE_PASSWORD: tb_password
     volumes:
       - tb-data:/data
       - tb-logs:/var/log/thingsboard
@@ -18,3 +31,4 @@ services:
 volumes:
   tb-data:
   tb-logs:
+  tb-postgres-data:

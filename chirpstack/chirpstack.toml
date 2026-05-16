@@ -1,0 +1,8 @@
+[postgresql]
+dsn="postgres://chirpstack:chirpstack@postgres/chirpstack?sslmode=disable"
+
+[redis]
+servers=["redis://redis/"]
+
+[integration.mqtt]
+server="tcp://mosquitto:1883/"

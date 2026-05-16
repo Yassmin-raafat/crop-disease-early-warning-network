@@ -1,0 +1,49 @@
+version: "3"
+
+services:
+
+  # PostgreSQL database for ChirpStack
+  postgres:
+    image: postgres:14-alpine
+    container_name: chirpstack-postgres
+    environment:
+      POSTGRES_USER: chirpstack
+      POSTGRES_PASSWORD: chirpstack
+      POSTGRES_DB: chirpstack
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+      - ./initdb:/docker-entrypoint-initdb.d
+
+  # Redis cache for ChirpStack
+  redis:
+    image: redis:7-alpine
+    container_name: chirpstack-redis
+
+  # Mosquitto MQTT broker
+  mosquitto:
+    image: eclipse-mosquitto
+    container_name: chirpstack-mosquitto
+    ports:
+      - "1885:1883"  # Fixed port mapping
+    volumes:
+      - ./mosquitto.conf:/mosquitto/config/mosquitto.conf
+
+  # ChirpStack LoRaWAN Network Server
+  chirpstack:
+    image: chirpstack/chirpstack:4.11.0
+    container_name: chirpstack
+    restart: unless-stopped
+    command: -c /etc/chirpstack
+    depends_on:
+      - postgres
+      - redis
+      - mosquitto
+    ports:
+      - "8080:8080"  # ChirpStack web interface
+    environment:
+      MQTT_BROKER_HOST: mosquitto
+    volumes:
+      - ./chirpstack.toml:/etc/chirpstack/chirpstack.toml
+
+volumes:
+  postgres-data:

@@ -1,0 +1,33 @@
+{
+  "name": "Disease Risk Engine",
+  "nodes": [
+    {
+      "id": "filter_low",
+      "type": "filter",
+      "config": {
+        "condition": "humidity < 70 || temperature < 15 || temperature > 35"
+      }
+    },
+    {
+      "id": "filter_moderate",
+      "type": "filter",
+      "config": {
+        "condition": "humidity >= 70 && humidity <= 85 && temperature >= 15 && temperature <= 25"
+      }
+    },
+    {
+      "id": "filter_high",
+      "type": "filter",
+      "config": {
+        "condition": "humidity > 85 && temperature >= 18 && temperature <= 25"
+      }
+    },
+    {
+      "id": "filter_critical",
+      "type": "filter",
+      "config": {
+        "condition": "humidity > 85 && temperature >= 18 && temperature <= 25 && leaf_wetness > 8 && rainfall > 5"
+      }
+    }
+  ]
+}

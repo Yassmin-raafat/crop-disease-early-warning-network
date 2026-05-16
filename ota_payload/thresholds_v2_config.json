@@ -1,0 +1,17 @@
+{
+  "title": "thresholds_v2",
+  "version": "1.1.0",
+  "target_profile": "Zone2_Sensor",
+  "description": "Grape-zone disease thresholds for Zone 2 nodes only.",
+  "thresholds": {
+    "moderate_humidity_min": 68,
+    "moderate_humidity_max": 85,
+    "moderate_temperature_min": 15,
+    "moderate_temperature_max": 26,
+    "high_humidity_min": 82,
+    "high_temperature_min": 17,
+    "high_temperature_max": 26,
+    "critical_leaf_wetness_min": 7,
+    "critical_rainfall_24h_min": 4
+  }
+}
