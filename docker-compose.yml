@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 version: '3.8'
 
 services:
@@ -32,3 +33,25 @@ volumes:
   tb-data:
   tb-logs:
   tb-postgres-data:
+=======
+version: '3.8'
+
+services:
+
+  thingsboard:
+    image: thingsboard/tb-postgres
+    container_name: thingsboard
+    restart: always
+
+    ports:
+      - "8085:9090"
+      - "1884:1883"
+
+    volumes:
+      - tb-data:/data
+      - tb-logs:/var/log/thingsboard
+
+volumes:
+  tb-data:
+  tb-logs:
+>>>>>>> 3820f91a8a23e6384e4ce93af2c3585caf9cdb81
